@@ -1,7 +1,7 @@
 import { View, Text,Image,StyleSheet,TextInput , TouchableOpacity} from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
-import React from 'react'
+import React,{useState} from 'react'
 
 
 export default function LoginUI({navigation}) {
@@ -28,7 +28,7 @@ export default function LoginUI({navigation}) {
           onChangeText={(password) => setPassword(password)}
         />
       </View>
-      {/* <View> */}
+      
        
     <TouchableOpacity activeOpacity={0.8} style={styles.LoginBtn}>
       <Text style={styles.LoginBtnText}>Login</Text>
