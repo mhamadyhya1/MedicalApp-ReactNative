@@ -1,10 +1,12 @@
 import { NavigationContainer } from '@react-navigation/native';
 import React, {useEffect} from 'react';
-import {Text} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LoginUI from './js/screens/LoginUI';
-import SignUP from './js/screens/SignUP';
+import Routes from './src/Navigation/Routes';
+import store from './src/redux/store';
+import { Provider } from 'react-redux';
+import FlashMessage from 'react-native-flash-message';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -15,14 +17,12 @@ export default function App() {
     SplashScreen.hide();
   })
   return (
-   <NavigationContainer>
-     <Stack.Navigator>
-       <Stack.Screen name="Home"
-        component={LoginUI}
-       n></Stack.Screen>
-       <Stack.Screen name="SignUp" component={SignUP}></Stack.Screen>
-     </Stack.Navigator>
-   </NavigationContainer>
+
+    <Provider store={store}>
+      <Routes />
+      <FlashMessage position="top" duration={3000}/>
+    </Provider>
+    
   );
 };
 
