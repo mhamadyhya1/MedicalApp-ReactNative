@@ -110,12 +110,13 @@ export function clearAsyncStorate(key) {
 return AsyncStorage.clear();
 }
 
-export function setUserData(data) {
-data = JSON.stringify(data);
-return AsyncStorage.setItem('userData', data);
+export const setUserData =async (data) =>{
+    data = JSON.stringify(data)
+    return AsyncStorage.setItem('userData', data);
 }
 
-export async function getUserData() {
+
+export const  getUserData =async (data)=> {
 return new Promise((resolve, reject) => {
     AsyncStorage.getItem('userData').then(data => {
         resolve(JSON.parse(data));

@@ -1,5 +1,5 @@
 import { LOGIN , SIGNUP } from "../../config/urls";
-import { apiPost } from "../../utils/utils";
+import { apiPost , setUserData , clearUserData} from "../../utils/utils";
 import store from "../store";
 import types from "../types";
 const {dispatch} = store; 
@@ -17,11 +17,22 @@ export function SignUp(data){
 }
 
 export function login (data) {
-   
+   return new Promise((resolve , reject)=>{
     return apiPost(LOGIN , data).then((res)=>{
-        console.log(res)
+        setUserData(res.data).then(()=>{
+            resolve(res)
+            savedUserData(res.data)
+        });
+        return
     }
     ).catch((error)=>{
-        console.log(error)
+        reject(error)
     })
+   })
+    
+}
+
+export function logout(){
+    dispatch({type:types.CLEAR_REDUX_STATE})
+    clearUserData();
 }

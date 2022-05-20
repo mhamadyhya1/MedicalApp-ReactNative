@@ -4,7 +4,10 @@ import React,{useState} from 'react';
 import Logo from './assests/Logo.png'
 import { useFormik , Formik } from 'formik';
 import validationSchema from '../SignUp/validationSchema';
+import {showError} from '../../components/ShowMessage';
 import actions from '../../redux/actions';
+import MainStack from '../../Navigation/MainStack';
+import TabRoutes from '../../Navigation/TabRoutes';
 
 
 
@@ -27,10 +30,12 @@ export default function LoginUI({navigation}) {
         username:values.username,
         password:values.password,
       })
-      console.log(res)
+      console.log("response:",res)
+      
+      
     } catch (error){
-      console.log(error)
-    }
+      console.log("error" ,error)
+      showError(error.message)}
   }
   return (
     
