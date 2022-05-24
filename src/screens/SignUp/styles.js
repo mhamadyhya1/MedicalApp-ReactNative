@@ -1,14 +1,18 @@
 import {StyleSheet} from 'react-native'
 
 export default StyleSheet.create({
-    container:{
-        flex:1,
-        backgroundColor:"#2622F0",
-        // justifyContent:"center",
-        textAlign:"left"
-        
+  container: {
+    flex: 1,
+    backgroundColor: "#34cfeb",
+    textAlign: "left",
+   },
+   Loginclicker:{
+     fontWeight:"bold",
+     marginLeft:3
+   },
+    InputContainer:{
+      marginTop:50,
     },
-    
     LoginBtn:{
         width:"60%",
         backgroundColor:'tomato',
@@ -18,7 +22,15 @@ export default StyleSheet.create({
         alignItems:'center',
         borderRadius:30,
         left:60,
-        marginTop:20
+        marginBottom:90,
+        marginTop:5,
+       },
+       BackToLogin:{
+        alignItems:'center',
+        justifyContent:'center',
+        flexDirection:"row",
+        color:"#000000"
+        
        },
        LoginBtnText:{
          fontWeight:'bold',
@@ -34,62 +46,13 @@ export default StyleSheet.create({
          textAlign:"center",
          
     },
-    // TextInput: {
-    //     height: 50,
-    //     flex: 1,
-    //     padding: 10,
-    //   },
-    inputView: {
-        backgroundColor: "white",
-        borderRadius: 30,
-        width: "70%",
-        height: 45,
-
-        alignItems: "center",
-        marginTop:50,
-        marginLeft:52,
-        
-      },
-      inputView2: {
-        backgroundColor: "white",
-        borderRadius: 30,
-        width: "70%",
-        height: 45,
-        alignItems: "center",
-        marginHorizontal:50,
-        marginVertical:25,
-      },
-      inputView3: {
-        backgroundColor: "white",
-        borderRadius: 30,
-        width: "70%",
-        height: 45,
-        alignItems: "center",
-        marginHorizontal:50,
-        
-      },
-      inputView4: {
-        backgroundColor: "white",
-        borderRadius: 30,
-        width: "70%",
-        marginHorizontal:50,
-        height: 45,
-        
-        alignItems: "center",
-        marginVertical:15,
-      },
-      inputView5: {
-        backgroundColor: "white",
-        borderRadius: 30,
-        width: "70%",
-        marginHorizontal:50,
-        height: 45,
-        marginBottom:15,
-        alignItems: "center",
-        marginVertical:15,
-      },
+    
       DatePicker:{
-          backgroundColor:"white",
+          fontSize:20,
+          textAlign:"center",
+          marginVertical:12,
+          fontWeight:"bold",
+          color:"#000000"
        },
        errorMessage:{
          color:"#b32e2e",

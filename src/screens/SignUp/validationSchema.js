@@ -13,6 +13,9 @@ const validationSchema = yup.object({
     .label('Password')
     .required()
     .min(5, 'Password must have more than 4 characters '),
+  phonenumber: yup.string()
+     .label()
+     .required(),
   confirmpassword: yup.string()
     .oneOf([yup.ref('password')], 'Confirm Password must matched Password')
     .required('Confirm Password is required'),

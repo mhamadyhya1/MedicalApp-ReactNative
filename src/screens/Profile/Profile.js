@@ -1,7 +1,6 @@
 import React, { Component, useState } from 'react';
 import { View, Text, StyleSheet, Alert , TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
-import AuthStack from '../../Navigation/AuthStack';
 import actions from '../../redux/actions';
 
 const Profile = ({navigation}) => {
@@ -23,7 +22,7 @@ const Profile = ({navigation}) => {
             actions.logout()
             setLoading(false)
         }, 2000);
-
+        navigation.push("AuthStack")
     }
     return (
         <View style={styles.container}>

@@ -1,5 +1,5 @@
-import { View, Text, Image, StyleSheet, TextInput, Button, TouchableOpacity, FlatList, ScrollView } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import { View, Text, TouchableOpacity,ScrollView} from 'react-native'
+import React, { useState} from 'react'
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import CustomTextInput from '../../components/CustomInput';
 import styles from './styles';
@@ -28,7 +28,7 @@ export default function SignUP({navigation}) {
     },
     validationSchema: validationSchema,
     validateOnBlur: true,
-    // onSubmit
+    onSubmit:validationSchema
 
   })
 
@@ -58,39 +58,41 @@ export default function SignUP({navigation}) {
    console.log("Errors: ", formik.errors)
    console.log(values.DOB)
 
-  const onSignUp = async () =>{
-     try{
-       const res = await actions.SignUp({
-         fullname:values.fullname,
-         username: values.username,
-         password:values.password,
-         phonenumber:values.phonenumber,
-         DOB:getDate()+"Z",
-       })
-       console.log("res for signup ==>>",res)
-       showSuccess("Register Successful")
-       navigation.goBack();
-     }catch (error){
-        console.log("Error:" , error.message)
+  const onSignUp = async () => {
+    
+      try {
+        const res = await actions.SignUp({
+          fullname: values.fullname,
+          username: values.username,
+          password: values.password,
+          phonenumber: values.phonenumber,
+          DOB: getDate(),
+        })
+        console.log("res for signup ==>>", res)
+        showSuccess("Register Successful")
+        navigation.goBack();
+      } catch (error) {
+        console.log("Error:", error.message)
         showError(error.message)
-     }
-
+      }
+    
   }
   return (
-    <ScrollView>
+    <ScrollView >
       <View style={styles.container} >
         <Text style={styles.RegisterText}>Register New Account</Text>
-
-        <CustomTextInput
+      
+      <View style={styles.InputContainer}>
+      <CustomTextInput
           name="user"
           label="Full name"
           placeholder="Enter Full Name"
-          value={formik.values.username}
+          value={formik.values.fullname}
           onChangeText={formik.handleChange('fullname')}
           onBlur={formik.handleBlur('fullname')}
           error={formik.touched.fullname && formik.errors.fullname ? formik.errors.fullname : ''}
         />
-        {/* <Text style={styles.errorMessage}>{formik.touched.fullname && formik.errors.fullname ? formik.errors.fullname : ''}</Text> */}
+        <Text style={styles.errorMessage}>{formik.touched.fullname && formik.errors.fullname ? formik.errors.fullname : ''}</Text>
 
         <CustomTextInput
           name="user"
@@ -112,7 +114,7 @@ export default function SignUP({navigation}) {
           onChangeText={formik.handleChange('password')}
           onBlur={formik.handleBlur('password')}
         />
-        {/* <Icon  name='user' size={32} /> */}
+        
         <Text style={styles.errorMessage}>{formik.touched.password && formik.errors.password ? formik.errors.password : ''}</Text>
         <CustomTextInput
           name="key"
@@ -134,20 +136,26 @@ export default function SignUP({navigation}) {
           onChangeText={formik.handleChange('phonenumber' , parseInt(values.phonenumber))}
           onBlur={formik.handleBlur('phonenumber')}
         />
-
+        <Text style={styles.errorMessage}>{formik.touched.phonenumber && formik.errors.phonenumber ? formik.errors.phonenumber : ''}</Text>
         <TouchableOpacity activeOpacity={0.8} onPress={showDatePicker}>
           <CustomTextInput
             editable={false}
             name="calendar-o"
             label="Date Of Birth"
-            placeholder="your Birthday"
+            placeholder="Date Of Birth"
             value={formik.values.DOB}
             onChangeText={formik.handleChange('DOB')}
             onBlur={formik.handleBlur('DOB')} />
         </TouchableOpacity>
-
-        <Text>{getDate()}</Text>
-
+        <Text style={styles.DatePicker}>{getDate()}</Text>
+         <View style={styles.BackToLogin}>
+         <Text>Back To </Text>
+          <TouchableOpacity style={styles.Loginclicker} onPress={()=>navigation.navigate("LoginUI")}>
+            <Text>Login Page</Text>
+          </TouchableOpacity>
+         </View>
+        
+      
         <TouchableOpacity activeOpacity={0.8} style={styles.LoginBtn} onPress={onSignUp}>
           <Text style={styles.LoginBtnText}>Register</Text>
         </TouchableOpacity>
@@ -157,6 +165,8 @@ export default function SignUP({navigation}) {
           onConfirm={handleConfirm}
           onCancel={hideDatePicker}
         />
+      </View>
+        
 
       </View>
     </ScrollView>

@@ -16,60 +16,62 @@ const CustomTextInput = ({
     return (
         <View style={styles.container}>
             <Text style={{
-                fontSize: 15,
-                marginLeft:25,
-                top:30,
-                fontWeight: 'bold'
+                fontSize: 17,
+                marginLeft: 20,
+                fontWeight: 'bold',
+                color:"#000"
+
             }}>{label}</Text>
 
-            <View >
-            <Icon style={styles.icon} name={name} size={32}/>
-            <TextInput
-                value={value}
-                placeholder={placheHolder}
-                onChangeText={onChangeText}
-                style={styles.inputStyle}
-                placeholderTextColor="gray"
-                {...props}
-                {...error ? <Text style={styles.errorMessage}>{error}</Text>:null}
-            />
-            </View> 
+            <View style={styles.inputStyle}>
+                <Icon style={styles.icon} name={name} size={32} />
+                <TextInput
+                    value={value}
+                    placeholder={placheHolder}
+                    onChangeText={onChangeText}
+                    style={{fontSize:18}}
+                    placeholderTextColor="gray"
+                    {...props}
+                    {...error ? <Text style={styles.errorMessage}>{error}</Text> : null}
+                />
             </View>
-           
-            
+        </View>
 
-        
+
+
+
     );
 };
 
 
 const styles = StyleSheet.create({
-    
-    
-      errorMessage:{
-        color:"#b32e2e",
-        marginLeft:25,
-        marginBottom:12,
-      },
-      
-      inputStyle:{
-          
-          backgroundColor:"white",
-          width:"90%",
-          left:25,
-          borderRadius:15,
-          borderBottomLeftRadius:0,
-          borderTopLeftRadius:0,
-      },
-      icon:{
-          top:38,
-          
-      }
 
-    
-      
-    
-        
+
+    errorMessage: {
+        color: "#b32e2e",
+        marginLeft: 25,
+        marginBottom: 12,
+    },
+
+    inputStyle: {
+
+        backgroundColor: "white",
+        width: "100%",
+        marginHorizontal:1,
+        borderRadius: 15,
+        flexDirection:'row',
+        alignItems:'center'
+    },
+    icon: {
+        paddingHorizontal:10,
+        color:"#414a4c"
+
+    }
+
+
+
+
+
 });
 
 export default CustomTextInput;
@@ -78,4 +80,4 @@ export default CustomTextInput;
 
 
 
-            
+

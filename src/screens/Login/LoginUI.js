@@ -31,8 +31,6 @@ export default function LoginUI({navigation}) {
         password:values.password,
       })
       console.log("response:",res)
-      
-      
     } catch (error){
       console.log("error" ,error)
       showError(error.message)}
@@ -60,6 +58,7 @@ export default function LoginUI({navigation}) {
           placeholder="Password"
           placeholderTextColor="#003f5c"
           value={values.password}
+          secureTextEntry={true}
           onChangeText={formik.handleChange('password')}
           onBlur={formik.handleBlur('password')}
         />
