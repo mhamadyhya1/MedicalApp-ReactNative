@@ -6,8 +6,6 @@ import { useFormik , Formik } from 'formik';
 import validationSchema from '../SignUp/validationSchema';
 import {showError} from '../../components/ShowMessage';
 import actions from '../../redux/actions';
-import MainStack from '../../Navigation/MainStack';
-import TabRoutes from '../../Navigation/TabRoutes';
 
 
 

@@ -62,8 +62,8 @@ export default StyleSheet.create({
         marginTop: Sizes.fixPadding + 5.0,
     },
     specialistInfoContainer: {
-        height: 160.0,
-        width: 200.0,
+        height: 150.0,
+        width: 150.0,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'white',

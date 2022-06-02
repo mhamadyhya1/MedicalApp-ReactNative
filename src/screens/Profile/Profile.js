@@ -22,7 +22,7 @@ const Profile = ({navigation}) => {
             actions.logout()
             setLoading(false)
         }, 2000);
-        navigation.push("AuthStack")
+        
     }
     return (
         <View style={styles.container}>

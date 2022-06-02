@@ -6,11 +6,11 @@ export const Fonts = {
     black16Regular: { fontFamily: 'NotoSans_Regular', fontSize: 16.0, },
     black20Regular: { fontFamily: 'NotoSans_Regular', fontSize: 20.0, },
 
-    blackBold: { fontFamily: 'NotoSans_Bold', },
+    blackBold: { fontFamily: 'Sans_Bold', },
     black15Bold: { fontFamily: 'NotoSans_Bold', fontSize: 15.0 },
     black16Bold: { fontFamily: 'NotoSans_Bold', fontSize: 16.0, },
     black18Bold: { fontFamily: 'NotoSans_Bold', fontSize: 18.0, },
-    black20Bold: { fontFamily: 'NotoSans_Bold', fontSize: 20.0, },
+    black20Bold: { fontFamily: 'NotoSans_Bold', fontSize: 20.0, fontWeight:"bold" },
     black22Bold: { fontFamily: 'NotoSans_Bold', fontSize: 22.0, },
     black24Bold: { fontFamily: 'NotoSans_Bold', fontSize: 24.0, },
 

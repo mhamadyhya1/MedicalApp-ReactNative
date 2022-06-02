@@ -32,7 +32,13 @@ export function login (data) {
     
 }
 
-export function logout(){
-    dispatch({type:types.CLEAR_REDUX_STATE})
+// export function logout(){
+//     dispatch({type:types.CLEAR_REDUX_STATE})
+//     clearUserData();
+// }
+export const logout = () => {
     clearUserData();
+    dispatch({type:types.LOGOUT});
+    
+    
 }

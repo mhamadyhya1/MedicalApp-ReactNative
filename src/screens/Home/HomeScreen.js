@@ -1,23 +1,23 @@
 import React, { useRef, useState, } from "react";
 import {
-    Text, View, StyleSheet, SafeAreaView, FlatList, StatusBar, ImageBackground,
+    Text, View,SafeAreaView, FlatList, StatusBar, ImageBackground,
     Image, TouchableHighlight, TouchableOpacity,
-    Dimensions,
 } from "react-native";
 import  Ionicons  from 'react-native-vector-icons/Ionicons';
 import { Fonts, Colors, Sizes } from "../../constant/styles";
 import RBSheet from "react-native-raw-bottom-sheet";
 import styles from "./styles";
 
-const { width } = Dimensions.get("window");
+
 
 export default function HomeScreen({ navigation }){
+    
 
     const specialistsList = [
         {
             id: '1',
             name: 'Doctor',
-            image: require('../../../assets/images/icons/patient.png'),
+            image: require('../../../assets/images/icons/stethoscope.png'),
         },
         {
             id: '2',
@@ -122,19 +122,19 @@ export default function HomeScreen({ navigation }){
 
     function title({ title }) {
         return (
-            <Text style={{ ...Fonts.black18Bold, marginVertical: Sizes.fixPadding, marginHorizontal: Sizes.fixPadding * 2.0 }}>
+            <Text style={{ ...Fonts.black20Bold, marginVertical: Sizes.fixPadding, fontWeight:"bold", marginHorizontal: Sizes.fixPadding * 2.0 }}>
                 {title}
             </Text>
         )
     }
 
-    function specialists() {
+   const  specialists=()=>{
 
         const renderItem = ({ item }) => (
             <TouchableHighlight
                 underlayColor="white"
                 activeOpacity={0.9}
-                onPress={() => navigation.navigate('Specialist', { name: item.name })}
+                onPress={() => navigation.navigate('SpecialistScreen')}
             >
                 <View style={styles.specialistInfoContainer}>
                     <Image
@@ -144,6 +144,7 @@ export default function HomeScreen({ navigation }){
                     />
                     <Text style={{
                         ...Fonts.black15Bold,
+                        fontWeight:"bold",
                         marginTop: Sizes.fixPadding,
                         marginHorizontal: Sizes.fixPadding,
                         textAlign: 'center'
@@ -261,12 +262,13 @@ export default function HomeScreen({ navigation }){
             <FlatList
                 ListHeaderComponent={
                     <>
-                        {/* {header()} */}
-                        {/* {search()}
-                        {newlyLanched()}
-                        {title({ title: 'Find your doctor by speciality' })} */}
+                        {/* {header()} 
+                         {search()}
+                        {newlyLanched()} */}
+                        {title({ title: 'Services' })}
                         {specialists()}
-                        {viewAll()}
+                        {title({ title: 'Announcements' })}
+                        {/* {viewAll()} */}
                     </>
                 }
                 data={labAndCheckUpList}
