@@ -1,4 +1,4 @@
-import { LOGIN , SIGNUP } from "../../config/urls";
+import { DOCTORS, LOGIN , SIGNUP } from "../../config/urls";
 import { apiPost , setUserData , clearUserData} from "../../utils/utils";
 import store from "../store";
 import types from "../types";
@@ -32,10 +32,6 @@ export function login (data) {
     
 }
 
-// export function logout(){
-//     dispatch({type:types.CLEAR_REDUX_STATE})
-//     clearUserData();
-// }
 export const logout = () => {
     clearUserData();
     dispatch({type:types.LOGOUT});

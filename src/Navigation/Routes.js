@@ -9,6 +9,9 @@ import TabRoutes from './TabRoutes';
 import SpecialistScreen from '../screens/Specialists/Specialists';
 import jwtDecode from 'jwt-decode';
 import actions from '../redux/actions';
+import AnnouncementDetailScreen from '../screens/AnnouncementsScreen/AnnouncementDetailScreen';
+import DoctorsScreen from '../screens/Doctors/DoctorsScreen';
+import Booking from '../screens/BookingScreen/Booking';
 
 
 const Stack = createNativeStackNavigator();
@@ -66,6 +69,9 @@ const AuthStack = () => (
 const MainStack = ()=> (
   <Stack.Navigator>
     <Stack.Screen name="Stack" options={{ headerShown: false }} component={TabStack} />
-    <Stack.Screen name="SpecialistScreen" options={{ headerShown: false }} component={SpecialistScreen} />
+    <Stack.Screen name="SpecialistScreen" options={{ headerShown: false }} component={SpecialistScreen}/>
+    <Stack.Screen name="DoctorsScreen"  options={({ route })=>({title:route.params.Name})} component={DoctorsScreen}/>
+    <Stack.Screen name="AnnouncementDetailScreen" options={({ route })=>({title:route.params.Title})} component={AnnouncementDetailScreen}/>
+    <Stack.Screen name="Booking" options={({ route })=>({title:route.params.Fullname})} component={Booking} />
   </Stack.Navigator>
 )

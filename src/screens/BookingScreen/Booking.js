@@ -1,8 +1,10 @@
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import CalendarStrip from 'react-native-calendar-strip';
 import { Text, View, TouchableOpacity, StatusBar, FlatList,Image, StyleSheet, Dimensions } from "react-native";
 import { Fonts, Colors, Sizes } from "../../constant/styles";
 import moment from "moment";
+import axios from "axios";
+import { TIMESLOTS } from "../../config/urls";
 
 
 const afternoonSlots = ["12:30", "1:00", "1:30", "2:00", "2:30", "3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00"]
@@ -10,9 +12,11 @@ const afternoonSlots = ["12:30", "1:00", "1:30", "2:00", "2:30", "3:00", "3:30",
 
 const { width } = Dimensions.get('screen');
 
-const ChatScreen = ({ navigation ,onDateChange }) => {
+export default function Booking({ route,navigation ,onDateChange }){
+    const {Fullname,id ,day, image, yearExperience,specialist} = route.params;
     const [currentDate, setCurrentDate] = useState(moment().date('DD MMMM,YYYY'));
-    const [selectedSlot, setSelectedSlot] = React.useState('');
+    const [selectedSlot, setSelectedSlot] = useState('');
+    const [TimeSlots,setTimeSlots] =useState([]);
     const [book, setBook] = React.useState(false);
     const handleOnDateSelect = (date) => {
         setCurrentDate(date);
@@ -21,6 +25,14 @@ const ChatScreen = ({ navigation ,onDateChange }) => {
         }
       };
 
+     useEffect(()=>{
+         axios.get(TIMESLOTS+id)
+         .then((res)=>res.data)
+         .then((TimeSlots)=>setTimeSlots(TimeSlots));
+     },[])
+   console.log(TimeSlots)
+
+console.log(id)
     function doctorInfo() {
 
         return (
@@ -30,7 +42,7 @@ const ChatScreen = ({ navigation ,onDateChange }) => {
             }}>
                 <View style={styles.doctorImageContainerStyle}>
                     <Image
-                        
+                        source={{uri:image}}
                         resizeMode="contain"
                         style={{
                             height: 90.0, width: 90.0, borderRadius: 45.0,
@@ -47,11 +59,11 @@ const ChatScreen = ({ navigation ,onDateChange }) => {
                         </View>
                         
                     </View>
-                    <Text style={{ ...Fonts.gray17Regular, marginTop: Sizes.fixPadding - 7.0 }}></Text>
+                    <Text style={{ ...Fonts.black20Bold,fontWeight:"bold",textAlign:"center", marginTop: Sizes.fixPadding - 7.0 }}>{specialist}</Text>
                     <Text style={{ ...Fonts.primaryColor16Regular, marginTop: Sizes.fixPadding - 7.0 }}>
-                         Years Experience
+                         {yearExperience} Years Experience
                     </Text>
-                    <Text style={{ ...Fonts.black20Bold, marginTop: Sizes.fixPadding - 2.0 }}></Text>
+                    <Text style={{ ...Fonts.black20Bold, marginTop: Sizes.fixPadding - 2.0 }}>Day Attend: {day}</Text>
                 </View>
             </View>
         )
@@ -60,20 +72,20 @@ const ChatScreen = ({ navigation ,onDateChange }) => {
     const renderItem = ({ item }) => {
         return (
             <TouchableOpacity onPress={() => {
-                setSelectedSlot(`${item} PM`)
+                setSelectedSlot(`${item} `)
                 setBook(true)
             }} >
                 <View style={{
-                    backgroundColor: selectedSlot == `${item} PM` ? Colors.primary : 'white',
-                    borderColor: selectedSlot == `${item} PM` ? Colors.primary : '#CDCDCD',
+                    backgroundColor: selectedSlot == `${item} ` ? Colors.primary : 'white',
+                    borderColor: selectedSlot == `${item} ` ? Colors.primary : '#CDCDCD',
                     ...styles.slotContainerStyle,
                 }}>
                     <Text style={
-                        (selectedSlot == `${item} PM`) ?
+                        (selectedSlot == `${item} `) ?
                             { ...Fonts.white16Regular }
                             :
                             { ...Fonts.primaryColor16Regular }}
-                    >{item} PM</Text>
+                    >{item}</Text>
                 </View>
             </TouchableOpacity>
         )
@@ -98,13 +110,11 @@ const ChatScreen = ({ navigation ,onDateChange }) => {
     }
 
     
-  
+     
     const datesBlacklistFunc = date => {
-       return date.isoWeekday() === 1 ; // disable Saturdays
+       return date.isoWeekday() === 7 ; // disable Saturdays
       }
-      const datesBlacklistFunc2 = date => {
-        return date.isoWeekday() === 3 ; // disable Saturdays
-       }
+    
     
     console.log(currentDate)
     function calander() {
@@ -161,23 +171,11 @@ const ChatScreen = ({ navigation ,onDateChange }) => {
                     {calander()}
                     {divider()}
                     <FlatList
-                        ListHeaderComponent={
-                            <>
-                                {/* {slotsInfo({ image: require("../../assets/images/icons/sunrise.png"), data: morningSlots })}
-                                {slotsTime({ slots: morningSlots, time: 'AM' })}
-                                {slotsInfo({ image: require("../../assets/images/icons/sun.png"), data: afternoonSlots })} */}
-                            </>
-                        }
-                        data={afternoonSlots}
+                        data={TimeSlots}
                         renderItem={renderItem}
                         keyExtractor={(index) => `${index}`}
                         numColumns={3}
-                        ListFooterComponent={
-                            <>
-                                {/* {slotsInfo({ image: require("../../assets/images/icons/sun-night.png"), data: eveningSlots })}
-                                {slotsTime({ slots: eveningSlots, time: 'PM' })} */}
-                            </>
-                        }
+                        
                         contentContainerStyle={{
                             paddingHorizontal: Sizes.fixPadding,
                             paddingBottom: book ? Sizes.fixPadding * 8.0 : Sizes.fixPadding * 2.0
@@ -190,15 +188,7 @@ const ChatScreen = ({ navigation ,onDateChange }) => {
         </View>)
 }
 
-ChatScreen.navigationOptions = {
-    title: 'Time Slots',
-    headerTitleStyle: { ...Fonts.black20Bold, marginLeft: -Sizes.fixPadding * 2.0 },
-    headerStyle: {
-        elevation: 0,
-        shadowOpacity: 0,
-        borderBottomWidth: 0,
-    }
-}
+
 
 const styles = StyleSheet.create({
     doctorImageContainerStyle: {
@@ -252,4 +242,3 @@ const styles = StyleSheet.create({
     }
 })
 
-export default ChatScreen;
