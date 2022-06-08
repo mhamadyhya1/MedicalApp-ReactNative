@@ -1,18 +1,17 @@
-import React,{useEffect, useState} from "react";
+import React,{useEffect, useState,} from "react";
 import CalendarStrip from 'react-native-calendar-strip';
 import { Text, View, TouchableOpacity, StatusBar, FlatList,Image, StyleSheet, Dimensions } from "react-native";
 import { Fonts, Colors, Sizes } from "../../constant/styles";
 import moment from "moment";
 import axios from "axios";
 import { TIMESLOTS } from "../../config/urls";
-
-
-const afternoonSlots = ["12:30", "1:00", "1:30", "2:00", "2:30", "3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00"]
-
-
+import {useSelector} from 'react-redux'
+import actions from "../../redux/actions";
+import { showError, showSuccess } from "../../components/ShowMessage";
 const { width } = Dimensions.get('screen');
 
 export default function Booking({ route,navigation ,onDateChange }){
+    const userData = useSelector((state) => state.auth.userData)
     const {Fullname,id ,day, image, yearExperience,specialist} = route.params;
     const [currentDate, setCurrentDate] = useState(moment().date('DD MMMM,YYYY'));
     const [selectedSlot, setSelectedSlot] = useState('');
@@ -31,8 +30,9 @@ export default function Booking({ route,navigation ,onDateChange }){
          .then((TimeSlots)=>setTimeSlots(TimeSlots));
      },[])
    console.log(TimeSlots)
+var patient_id =userData.user._id;
+console.log("my id",patient_id)
 
-console.log(id)
     function doctorInfo() {
 
         return (
@@ -45,11 +45,11 @@ console.log(id)
                         source={{uri:image}}
                         resizeMode="contain"
                         style={{
-                            height: 90.0, width: 90.0, borderRadius: 45.0,
+                            height: 90.0, width: 90.0, borderRadius: 45.0
                         }}
                     />
                 </View>
-                <View style={{ justifyContent: 'center', marginTop: Sizes.fixPadding, }}>
+                <View style={{ justifyContent: 'center', marginBottom: Sizes.fixPadding + 2.5 }}>
                     <View style={{
                         flexDirection: 'row', justifyContent: 'space-between',
                         width: width - 140.0,
@@ -59,7 +59,7 @@ console.log(id)
                         </View>
                         
                     </View>
-                    <Text style={{ ...Fonts.black20Bold,fontWeight:"bold",textAlign:"center", marginTop: Sizes.fixPadding - 7.0 }}>{specialist}</Text>
+                    <Text style={{ ...Fonts.black20Bold,fontWeight:"bold",textAlign:"center",marginRight:85, marginTop: Sizes.fixPadding + 1.0 }}>Specialist: {specialist}</Text>
                     <Text style={{ ...Fonts.primaryColor16Regular, marginTop: Sizes.fixPadding - 7.0 }}>
                          {yearExperience} Years Experience
                     </Text>
@@ -72,34 +72,43 @@ console.log(id)
     const renderItem = ({ item }) => {
         return (
             <TouchableOpacity onPress={() => {
-                setSelectedSlot(`${item} `)
+                setSelectedSlot(`${item}`)
                 setBook(true)
             }} >
                 <View style={{
-                    backgroundColor: selectedSlot == `${item} ` ? Colors.primary : 'white',
-                    borderColor: selectedSlot == `${item} ` ? Colors.primary : '#CDCDCD',
+                    backgroundColor: selectedSlot == `${item}` ? Colors.primary : 'white',
+                    borderColor: selectedSlot == `${item}` ? Colors.primary : '#CDCDCD',
                     ...styles.slotContainerStyle,
                 }}>
-                    <Text style={
-                        (selectedSlot == `${item} `) ?
-                            { ...Fonts.white16Regular }
-                            :
-                            { ...Fonts.primaryColor16Regular }}
-                    >{item}</Text>
+                    <Text style={(selectedSlot=={item})}>{item}</Text>
                 </View>
             </TouchableOpacity>
         )
     }
     console.log(selectedSlot)
+    console.log("currentdate",currentDate)
     
-
+   const onBooking = async ()=>{
+       try{
+           const res =await actions.CreateAppointment({
+               doctor_id:id,
+               patient_id:patient_id,
+               date:BookedDate+"Z",
+               time:selectedSlot
+           })
+           console.log("booked data: ",res)
+           showSuccess("Booked Successful")
+       }
+       catch (error){
+        console.log("Error:", error.message)
+        showError(error.message)
+       }
+   }
     function bookingInfo() {
         return (
             book ?
                 <View style={styles.bookNowContainerStyle}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Consultation', {
-                        image, name, experience, type, selectedSlot, rating
-                    })}>
+                    <TouchableOpacity onPress={onBooking}>
                         <View style={styles.bookButtonStyle}>
                             <Text style={{ ...Fonts.white20Regular }}>Book now</Text>
                         </View>
@@ -112,17 +121,17 @@ console.log(id)
     
      
     const datesBlacklistFunc = date => {
-       return date.isoWeekday() === 7 ; // disable Saturdays
+       return date.isoWeekday() === 7 ;
       }
-    
+    var BookedDate = moment(currentDate).format('DD/MMMM/YYYY')
     
     console.log(currentDate)
     function calander() {
         return (
             <View>
-                <View style={{}}>
+                <View >
               <Text style={styles.title}>
-                {moment(currentDate).format('DD MMMM,YYYY')}
+                {moment(currentDate).format('DD/MMMM/YYYY')}
               </Text> 
                     <CalendarStrip
                         style={{ height: 100, paddingTop: Sizes.fixPadding * 2.0, paddingBottom: Sizes.fixPadding, }}
@@ -199,14 +208,19 @@ const styles = StyleSheet.create({
         borderColor: '#B3BCFC',
         borderWidth: 1.0,
         marginRight: Sizes.fixPadding,
-        marginTop: Sizes.fixPadding,
-        marginBottom: Sizes.fixPadding + 3.0,
+        marginTop: 30,
+        marginBottom: Sizes.fixPadding + 2,
         shadowColor: Colors.primary,
         shadowOffset: { width: 0, height: 0 },
         shadowOpacity: 0.5,
         shadowRadius: Sizes.fixPadding,
         elevation: 20.0,
         overflow: 'hidden',
+    },
+    title:{
+       fontWeight:"bold",
+       textAlign:"center",
+       top:15,
     },
     slotContainerStyle: {
         alignItems: 'center',

@@ -1065,7 +1065,7 @@
     "fastq" "^1.6.0"
 
 "@npmcli/arborist@^5.0.0", "@npmcli/arborist@^5.0.4":
-  "version" "5.2.0"
+  "version" "5.2.1"
   dependencies:
     "@isaacs/string-locale-compare" "^1.1.0"
     "@npmcli/installed-package-contents" "^1.0.7"
@@ -2323,8 +2323,8 @@
   "resolved" "https://registry.npmjs.org/bytes/-/bytes-3.0.0.tgz"
   "version" "3.0.0"
 
-"cacache@^16.0.0", "cacache@^16.0.2", "cacache@^16.0.6", "cacache@^16.0.7":
-  "version" "16.0.7"
+"cacache@^16.0.0", "cacache@^16.0.6", "cacache@^16.1.0":
+  "version" "16.1.0"
   dependencies:
     "@npmcli/fs" "^2.1.0"
     "@npmcli/move-file" "^2.0.0"
@@ -3792,14 +3792,13 @@
     "path-is-absolute" "^1.0.0"
 
 "glob@^8.0.1":
-  "version" "8.0.1"
+  "version" "8.0.3"
   dependencies:
     "fs.realpath" "^1.0.0"
     "inflight" "^1.0.4"
     "inherits" "2"
     "minimatch" "^5.0.1"
     "once" "^1.3.0"
-    "path-is-absolute" "^1.0.0"
 
 "globals@^11.1.0":
   "integrity" "sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA=="
@@ -5175,7 +5174,7 @@
     "tar" "^6.1.0"
 
 "libnpmexec@^4.0.2":
-  "version" "4.0.5"
+  "version" "4.0.6"
   dependencies:
     "@npmcli/arborist" "^5.0.0"
     "@npmcli/ci-detect" "^2.0.0"
@@ -5208,11 +5207,11 @@
     "npm-registry-fetch" "^13.0.0"
 
 "libnpmpack@^4.0.2":
-  "version" "4.0.3"
+  "version" "4.1.0"
   dependencies:
     "@npmcli/run-script" "^3.0.0"
     "npm-package-arg" "^9.0.1"
-    "pacote" "^13.0.5"
+    "pacote" "^13.5.0"
 
 "libnpmpublish@^6.0.2":
   "version" "6.0.4"
@@ -5349,11 +5348,11 @@
   dependencies:
     "semver" "^6.0.0"
 
-"make-fetch-happen@^10.0.3", "make-fetch-happen@^10.0.6", "make-fetch-happen@^10.1.3":
-  "version" "10.1.3"
+"make-fetch-happen@^10.0.3", "make-fetch-happen@^10.0.6", "make-fetch-happen@^10.1.6":
+  "version" "10.1.6"
   dependencies:
     "agentkeepalive" "^4.2.1"
-    "cacache" "^16.0.2"
+    "cacache" "^16.1.0"
     "http-cache-semantics" "^4.1.0"
     "http-proxy-agent" "^5.0.0"
     "https-proxy-agent" "^5.0.0"
@@ -5772,8 +5771,13 @@
   dependencies:
     "brace-expansion" "^1.1.7"
 
+"minimatch@^3.1.1":
+  "version" "3.1.2"
+  dependencies:
+    "brace-expansion" "^1.1.7"
+
 "minimatch@^5.0.1":
-  "version" "5.0.1"
+  "version" "5.1.0"
   dependencies:
     "brace-expansion" "^2.0.1"
 
@@ -6033,8 +6037,8 @@
     "semver" "^7.3.5"
     "validate-npm-package-name" "^4.0.0"
 
-"npm-packlist@^5.0.0":
-  "version" "5.0.3"
+"npm-packlist@^5.1.0":
+  "version" "5.1.0"
   dependencies:
     "glob" "^8.0.1"
     "ignore-walk" "^5.0.1"
@@ -6084,9 +6088,9 @@
   "version" "1.0.1"
 
 "npm@^8.10.0":
-  "integrity" "sha512-6oo65q9Quv9mRPGZJufmSH+C/UFdgelwzRXiglT/2mDB50zdy/lZK5dFY0TJ9fJ/8gHqnxcX1NM206KLjTBMlQ=="
-  "resolved" "https://registry.npmjs.org/npm/-/npm-8.10.0.tgz"
-  "version" "8.10.0"
+  "integrity" "sha512-0yOlhfgu1UzP6UijnaFuIS2bES2H9D90EA5OVsf2iOZw7VBrjntXKEwKfCaFA6vMVWkCP8qnPwCxxPdnDVwlNw=="
+  "resolved" "https://registry.npmjs.org/npm/-/npm-8.12.1.tgz"
+  "version" "8.12.1"
   dependencies:
     "@isaacs/string-locale-compare" "^1.1.0"
     "@npmcli/arborist" "^5.0.4"
@@ -6098,7 +6102,7 @@
     "@npmcli/run-script" "^3.0.1"
     "abbrev" "~1.1.1"
     "archy" "~1.0.0"
-    "cacache" "^16.0.7"
+    "cacache" "^16.1.0"
     "chalk" "^4.1.2"
     "chownr" "^2.0.0"
     "cli-columns" "^4.0.0"
@@ -6123,7 +6127,7 @@
     "libnpmsearch" "^5.0.2"
     "libnpmteam" "^4.0.2"
     "libnpmversion" "^3.0.1"
-    "make-fetch-happen" "^10.1.3"
+    "make-fetch-happen" "^10.1.6"
     "minipass" "^3.1.6"
     "minipass-pipeline" "^1.2.4"
     "mkdirp" "^1.0.4"
@@ -6140,7 +6144,7 @@
     "npm-user-validate" "^1.0.1"
     "npmlog" "^6.0.2"
     "opener" "^1.5.2"
-    "pacote" "^13.3.0"
+    "pacote" "^13.6.0"
     "parse-conflict-json" "^2.0.2"
     "proc-log" "^2.0.1"
     "qrcode-terminal" "^0.12.0"
@@ -6150,7 +6154,7 @@
     "readdir-scoped-modules" "^1.1.0"
     "rimraf" "^3.0.2"
     "semver" "^7.3.7"
-    "ssri" "^9.0.0"
+    "ssri" "^9.0.1"
     "tar" "^6.1.11"
     "text-table" "~0.2.0"
     "tiny-relative-date" "^1.3.0"
@@ -6407,8 +6411,8 @@
   "resolved" "https://registry.npmjs.org/p-try/-/p-try-2.2.0.tgz"
   "version" "2.2.0"
 
-"pacote@^13.0.3", "pacote@^13.0.5", "pacote@^13.3.0":
-  "version" "13.3.0"
+"pacote@^13.0.3", "pacote@^13.0.5", "pacote@^13.5.0", "pacote@^13.6.0":
+  "version" "13.6.0"
   dependencies:
     "@npmcli/git" "^3.0.0"
     "@npmcli/installed-package-contents" "^1.0.7"
@@ -6421,7 +6425,7 @@
     "minipass" "^3.1.6"
     "mkdirp" "^1.0.4"
     "npm-package-arg" "^9.0.0"
-    "npm-packlist" "^5.0.0"
+    "npm-packlist" "^5.1.0"
     "npm-pick-manifest" "^7.0.0"
     "npm-registry-fetch" "^13.0.1"
     "proc-log" "^2.0.0"
@@ -6869,6 +6873,11 @@
   dependencies:
     "prop-types" "^15.7.2"
 
+"react-native-pager-view@^5.4.24":
+  "integrity" "sha512-dRMB7i3B+mu4NCeIN6gqbR/kC/rr2wzqO0gisXDdJwJr78G24sWoTNpLEDFo3G8TFHY9nTMutVl5CUvkN2dp6g=="
+  "resolved" "https://registry.npmjs.org/react-native-pager-view/-/react-native-pager-view-5.4.24.tgz"
+  "version" "5.4.24"
+
 "react-native-raw-bottom-sheet@^2.2.0":
   "integrity" "sha512-qL4JKIqvbcVxbkKzeh51hjV7suoJN3ouxzvLmOg0FBUV1yiJAfEbacjQdtRCI6+OU5pyGFBIifLsTXcFDwHggg=="
   "resolved" "https://registry.npmjs.org/react-native-raw-bottom-sheet/-/react-native-raw-bottom-sheet-2.2.0.tgz"
@@ -6914,6 +6923,11 @@
   "integrity" "sha512-Ns7Bn9H/Tyw278+5SQx9oAblDZ7JixyzeOczcBK8dipQk2pD7Djkcfnf1nB/8RErAmMLL9iXgW0QHqiII8AhKw=="
   "resolved" "https://registry.npmjs.org/react-native-swipe-gestures/-/react-native-swipe-gestures-1.0.5.tgz"
   "version" "1.0.5"
+
+"react-native-tab-view@^3.1.1":
+  "integrity" "sha512-M5pRN6utQfytKWoKlKVzg5NbkYu308qNoW1khGTtEOTs1k14p2dHJ/BWOJoJYHKbPVUyZldbG9MFT7gUl4YHnw=="
+  "resolved" "https://registry.npmjs.org/react-native-tab-view/-/react-native-tab-view-3.1.1.tgz"
+  "version" "3.1.1"
 
 "react-native-vector-icons@^9.1.0":
   "integrity" "sha512-2AHZ/h9d/+rC0odz+OwbGNlc1Lik/pHhSixn4HfC8RtQ8CxfSBZ6gg7bTLcZhdSvZN+ZEGi30Fj+ZnOSQy+smg=="
@@ -7676,8 +7690,8 @@
   "resolved" "https://registry.npmjs.org/sprintf-js/-/sprintf-js-1.0.3.tgz"
   "version" "1.0.3"
 
-"ssri@^9.0.0":
-  "version" "9.0.0"
+"ssri@^9.0.0", "ssri@^9.0.1":
+  "version" "9.0.1"
   dependencies:
     "minipass" "^3.1.1"
 

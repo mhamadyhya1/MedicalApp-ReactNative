@@ -1,4 +1,4 @@
-import { DOCTORS, LOGIN , SIGNUP } from "../../config/urls";
+import { ADDAPPOINTMENT, DOCTORS, LOGIN , SIGNUP } from "../../config/urls";
 import { apiPost , setUserData , clearUserData} from "../../utils/utils";
 import store from "../store";
 import types from "../types";
@@ -14,6 +14,9 @@ export const savedUserData = (data) =>{
 
 export function SignUp(data){
     return apiPost(SIGNUP, data)
+}
+export function CreateAppointment(data){
+    return apiPost(ADDAPPOINTMENT,data)
 }
 
 export function login (data) {
