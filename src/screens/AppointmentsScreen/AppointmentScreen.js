@@ -5,10 +5,9 @@ import  FontAwesome5  from 'react-native-vector-icons/FontAwesome5';
 import { Fonts, Colors, Sizes ,width} from "../../constant/styles";
 import axios from 'axios';
 import {useSelector} from 'react-redux'
-
 import { GetAppointments } from '../../config/urls';
 import moment from 'moment';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+
 
 export default function AppointmentScreen() {
     const layout = useWindowDimensions();
@@ -21,24 +20,25 @@ export default function AppointmentScreen() {
         .then((res)=>res.data)
         .then((ActiveAppointments)=>setActiveAppointments(ActiveAppointments))
         
-    })
+    },[])
     console.log(ActiveAppointments.date)
     console.log(ActiveAppointments)
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
       { key: 'first', title: 'Active' },
-      { key: 'second', title: 'Today' },
+    //   { key: 'second', title: 'Today' },
     ]);
-    const PastAppointmentScreen = () => {
+    const AppointmentShow = () => {
         
         const renderItem = ({ item }) => (
-            <View style={{ marginHorizontal: 20.0 }}>
+            
+                <View style={{ marginHorizontal: 20.0 }}>
                 <View style={{ flexDirection: 'row', marginVertical: 20.0 }}>
                     <View style={styles.pasetCircleStyle}>
                         <Text style={{ textAlign: 'center', color: Colors.primary, fontSize: 18, }}>{moment(item.date).format("DD MMMM YYYY")}</Text>
                     </View>
                     <View style={{ marginLeft: 10.0 }}>
-                        <Text style={{ marginVertical: 8.0,fontWeight:"bold",...Fonts.black20Bold  }}>{item.doctor_id.Fullname}</Text>
+                        <Text style={{ marginVertical: 8.0,fontWeight:"bold",...Fonts.black20Bold  }}>Dr {item.doctor_id.Fullname}</Text>
                         <Text style={{ marginVertical: 8.0,fontWeight:"bold",...Fonts.black20Bold }}>{moment(item.time , 'hh:mm a').format('hh:mm a')}</Text>
                         <Text style={{ ...Fonts.primaryColorRegular }}></Text>
                     </View>
@@ -46,8 +46,9 @@ export default function AppointmentScreen() {
                 
                 <View style={{ backgroundColor: Colors.lightGray, height: 0.50, }}>
                 </View>
-               
             </View>
+            
+            
            
         )
         
@@ -59,10 +60,14 @@ export default function AppointmentScreen() {
                     <Text style={{ ...Fonts.gray17Regular, marginTop: Sizes.fixPadding * 2.0 }}>No Active Appointments</Text>
                 </View>  :
                 <FlatList
+                    
                     data={ActiveAppointments}
                     keyExtractor={(item) => `${item._id}`}
                     renderItem={renderItem}
                 />
+                
+                
+
             
         )
     
@@ -73,10 +78,11 @@ export default function AppointmentScreen() {
       );
       
       const renderScene = SceneMap({
-        first: PastAppointmentScreen,
-        second: SecondRoute,
+        first: AppointmentShow,
+        // second: SecondRoute,
       });
     return (
+
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}
@@ -105,17 +111,6 @@ export default function AppointmentScreen() {
         borderRadius: 45.0,
         backgroundColor: '#E8F5E9',
         borderColor: '#8ECC90',
-        borderWidth: 1.5,
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingHorizontal: 10.0,
-    },
-    cancellCircleStyle: {
-        height: 90.0,
-        width: 90.0,
-        borderRadius: 45.0,
-        backgroundColor: '#FFEBEE',
-        borderColor: '#F88C85',
         borderWidth: 1.5,
         alignItems: 'center',
         justifyContent: 'center',

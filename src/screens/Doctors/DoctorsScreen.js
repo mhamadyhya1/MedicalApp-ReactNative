@@ -2,6 +2,7 @@ import React, { useEffect,useState } from "react";
 import { Text, View, StyleSheet, TextInput, Image, FlatList, StatusBar, TouchableOpacity, SafeAreaView, Dimensions } from "react-native";
 import { Fonts, Colors, Sizes } from "../../constant/styles";
 import axios from "axios";
+import  FontAwesome5  from 'react-native-vector-icons/FontAwesome5';
 import { DOCTORS } from "../../config/urls";
 
 const { width } = Dimensions.get('screen');
@@ -29,6 +30,7 @@ console.log(Name)
 
         const renderItem = ({ item }) => {
             return (
+
                 <View style={{ justifyContent: 'center', marginTop: 15.0, }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <View style={styles.doctorImageContainerStyle}>
@@ -60,9 +62,6 @@ console.log(Name)
                             </View>
                         </TouchableOpacity>
                     </View>
-
-
-
                     <View style={styles.dividerStyle}>
                     </View>
                 </View>
@@ -70,6 +69,11 @@ console.log(Name)
         }
 
         return (
+            Data.length==0?
+            <View style={styles.noActiveDataContainerStyle}>
+                    <FontAwesome5 name="user-md" size={70} color='gray' />
+                    <Text style={{ ...Fonts.gray17Regular, marginTop: Sizes.fixPadding * 2.0 }}>No Active Doctors For this Specialist</Text>
+                </View>:
             <FlatList
                 data={Data}
                 keyExtractor={(item) => `${item.id}`}
@@ -90,25 +94,13 @@ console.log(Name)
 }
 
 const styles = StyleSheet.create({
-    headerSearchStyle: {
-        flexDirection: 'row',
-        backgroundColor: "white",
-        borderRadius: Sizes.fixPadding,
-        borderColor: '#E0E0E0',
-        borderWidth: 1,
-        paddingHorizontal: Sizes.fixPadding * 2.0,
-        alignItems: 'center',
-        paddingVertical: Sizes.fixPadding,
-        marginHorizontal: Sizes.fixPadding * 2.0,
-        marginTop: Sizes.fixPadding,
-        marginBottom: Sizes.fixPadding,
-    },
-    headerContainerStyle: {
+    
+    
+    noActiveDataContainerStyle: {
+        flex: 1,
         backgroundColor: 'white',
-        flexDirection: 'row',
-        height: 40.0,
-        paddingHorizontal: Sizes.fixPadding * 2.0,
-        marginBottom: Sizes.fixPadding,
+        marginHorizontal: Sizes.fixPadding * 2.0,
+        justifyContent: 'center',
         alignItems: 'center'
     },
     doctorImageContainerStyle: {
@@ -130,19 +122,11 @@ const styles = StyleSheet.create({
     },
     bookContainerStyle: {
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
+        alignItems: "center",
+        justifyContent: "flex-end",
         marginHorizontal: Sizes.fixPadding * 2.0,
     },
-    bookVideoConsultButtonStyle: {
-        width: width / 2 - 30,
-        borderColor: '#FF9B07',
-        borderWidth: 1.0,
-        backgroundColor: '#FFEDD2',
-        borderRadius: Sizes.fixPadding,
-        paddingVertical: Sizes.fixPadding,
-        alignItems: 'center',
-    },
+    
     bookAppointmentButtonStyle: {
         width: width / 2 - 30,
         borderColor: Colors.primary,

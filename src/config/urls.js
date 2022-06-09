@@ -1,4 +1,4 @@
-export const API_BASE_URL = "http://192.168.0.101:3900/api";
+export const API_BASE_URL = "http://192.168.140.106:3900/api";
 export const getApiUrl = (endpoint) => API_BASE_URL + endpoint
 
 export const LOGIN = getApiUrl('/patients/login')

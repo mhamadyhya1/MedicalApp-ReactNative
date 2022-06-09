@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, } from "react";
 import {
-    Text, View,SafeAreaView, FlatList, StatusBar, ImageBackground,
+    Text, View,SafeAreaView, FlatList, StatusBar,
     Image, TouchableHighlight, TouchableOpacity,
 } from "react-native";
 import  Ionicons  from 'react-native-vector-icons/Ionicons';
@@ -49,16 +49,6 @@ export default function HomeScreen({ navigation }){
             id: '5',
             name: 'Physiotherapist',
             image: require('../../../assets/images/icons/physiotherapist.png'),
-        },
-        {
-            id: '6',
-            name: 'Nutritionist',
-            image: require('../../../assets/images/icons/nutritionist.png'),
-        },
-        {
-            id: '7',
-            name: 'Spine and Pain Specialist',
-            image: require('../../../assets/images/icons/pain.png'),
         },
     ];
 
