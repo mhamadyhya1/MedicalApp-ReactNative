@@ -7,48 +7,59 @@ import  Ionicons  from 'react-native-vector-icons/Ionicons';
 import { Fonts, Colors, Sizes } from "../../constant/styles";
 import styles from "./styles";
 import { ANNOUNCEMENTS } from "../../config/urls";
+import { useIsFocused } from "@react-navigation/native";
 
 
 
 
 
 export default function HomeScreen({ navigation }){
+    const isFocused = useIsFocused();
     const [AnnouncementData, setAnnouncementData] = useState([]);
     const [isLoading,setisLoading]=useState(false);
-    useEffect(()=>{
+    useEffect(() => {
+        if (isFocused) {
+            fetchAnnouncements();
+        }
+    }, [isFocused])
+
+    const fetchAnnouncements = () =>{
         fetch(ANNOUNCEMENTS)
         .then((response)=>response.json())
         .then((AnnouncementData)=>setAnnouncementData(AnnouncementData))
         .catch(console.error)
         .finally(()=>setisLoading(true))
-
-    },[])
-
+    }
     const specialistsList = [
         {
             id: '1',
             name: 'Doctor',
             image: require('../../../assets/images/icons/stethoscope.png'),
+            screen:'SpecialistScreen'
         },
         {
             id: '2',
-            name: 'Homoeopath',
-            image: require('../../../assets/images/icons/stethoscope.png'),
+            name: 'X-Ray',
+            image: require('../../../assets/images/icons/xray.png'),
+            screen:'UnderConstruction'
         },
         {
             id: '3',
-            name: 'Gynecologist',
-            image: require('../../../assets/images/icons/woman.png'),
+            name: 'Blood Test',
+            image: require('../../../assets/images/icons/blood_test.png'),
+            screen:'UnderConstruction'
         },
         {
             id: '4',
-            name: 'Pediatrician',
-            image: require('../../../assets/images/icons/pediatrician.png'),
+            name: 'Medicine',
+            image: require('../../../assets/images/icons/medicine.png'),
+            screen:'UnderConstruction'
         },
         {
             id: '5',
-            name: 'Physiotherapist',
-            image: require('../../../assets/images/icons/physiotherapist.png'),
+            name: 'Vaccination',
+            image: require('../../../assets/images/icons/vaccination.png'),
+            screen:'UnderConstruction'
         },
     ];
 
@@ -68,7 +79,7 @@ export default function HomeScreen({ navigation }){
             <TouchableHighlight
                 underlayColor="white"
                 activeOpacity={0.9}
-                onPress={() => navigation.navigate('SpecialistScreen')}
+                onPress={() => navigation.navigate(item.screen)}
             >
                 <View style={styles.specialistInfoContainer}>
                     <Image

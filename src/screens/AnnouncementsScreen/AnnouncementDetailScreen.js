@@ -36,30 +36,6 @@ const {image , Title , Details}=route.params;
             <Text style={{ ...Fonts.black22Bold,fontWeight:"bold", marginHorizontal: Sizes.fixPadding * 2.0, marginTop: Sizes.fixPadding * 2.0 }}>{title}</Text>
         )
     }
-
-   
-
-    // function mapInfo() {
-    //     return (
-    //         <View style={styles.mapContainerStyle}>
-    //             <MapView
-    //                 style={{ height: 270.0, }}
-    //                 initialRegion={{
-    //                     latitude: 37.33233141,
-    //                     longitude: -122.0312186,
-    //                     latitudeDelta: 0.10,
-    //                     longitudeDelta: 0.10,
-    //                 }}
-    //             >
-    //                 <Marker
-    //                     coordinate={{ latitude: 37.33233141, longitude: -122.0312186 }}
-    //                     pinColor={"red"}
-    //                 />
-    //             </MapView>
-    //         </View>
-    //     )
-    // }
-
     
 
     return(

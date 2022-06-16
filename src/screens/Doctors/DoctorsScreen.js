@@ -76,7 +76,7 @@ console.log(Name)
                 </View>:
             <FlatList
                 data={Data}
-                keyExtractor={(item) => `${item.id}`}
+                keyExtractor={(item) => item._id}
                 renderItem={renderItem}
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ paddingBottom: Sizes.fixPadding * 2.0 }}

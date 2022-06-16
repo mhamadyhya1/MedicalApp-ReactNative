@@ -132,7 +132,7 @@ console.log("my id",patient_id)
                 <View >
               <Text style={styles.title}>
                 {moment(currentDate).format('DD/MMMM/YYYY')}
-              </Text> 
+               </Text> 
                     <CalendarStrip
                         style={{ height: 100, paddingTop: Sizes.fixPadding * 2.0, paddingBottom: Sizes.fixPadding, }}
                         highlightDateContainerStyle={{

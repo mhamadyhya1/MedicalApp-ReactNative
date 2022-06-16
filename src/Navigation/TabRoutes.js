@@ -21,7 +21,7 @@ export default function TabRoutes() {
      (<Icon name="home" size={24} color="grey"/>)  
   }}
       name="Home" component={HomeScreen} />
-    <BottomTab.Screen options={{headerShown:false , tabBarIcon:()=>
+    <BottomTab.Screen options={{unmountOnBlur: true,headerShown:false , tabBarIcon:()=>
     (<FontAwesome5 name="calendar-alt" size={24} color="grey"/>)
     }}
         name="appointments" component={ScheduleScreen}

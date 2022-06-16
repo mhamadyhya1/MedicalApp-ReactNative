@@ -12,6 +12,8 @@ import actions from '../redux/actions';
 import AnnouncementDetailScreen from '../screens/AnnouncementsScreen/AnnouncementDetailScreen';
 import DoctorsScreen from '../screens/Doctors/DoctorsScreen';
 import Booking from '../screens/BookingScreen/Booking';
+import UnderConstruction from '../screens/UnderConstruction/underconstruction';
+import AboutUs from '../screens/About Us/AboutUs';
 
 
 const Stack = createNativeStackNavigator();
@@ -73,5 +75,8 @@ const MainStack = ()=> (
     <Stack.Screen name="DoctorsScreen"  options={({ route })=>({title:route.params.Name})} component={DoctorsScreen}/>
     <Stack.Screen name="AnnouncementDetailScreen" options={({ route })=>({title:route.params.Title})} component={AnnouncementDetailScreen}/>
     <Stack.Screen name="Booking" options={({ route })=>({title:route.params.Fullname})} component={Booking} />
+    <Stack.Screen name="UnderConstruction"  component={UnderConstruction}/>
+    <Stack.Screen name="About Us"  component={AboutUs}/>
+
   </Stack.Navigator>
 )

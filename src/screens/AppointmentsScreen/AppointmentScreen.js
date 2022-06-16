@@ -1,52 +1,97 @@
 import  React,{useEffect,useState} from 'react';
-import { View, useWindowDimensions , FlatList,StyleSheet,Text } from 'react-native';
+import { View, useWindowDimensions , FlatList,StyleSheet,Text ,TouchableOpacity, RefreshControlBase } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import  FontAwesome5  from 'react-native-vector-icons/FontAwesome5';
+import  AntDesign  from 'react-native-vector-icons/FontAwesome5';
 import { Fonts, Colors, Sizes ,width} from "../../constant/styles";
 import axios from 'axios';
 import {useSelector} from 'react-redux'
-import { GetAppointments } from '../../config/urls';
+import { DELETEAPPOINTMENT, GetAppointments, TODAYAPPOINTMENTS } from '../../config/urls';
 import moment from 'moment';
+import { showError, showSuccess } from '../../components/ShowMessage';
+import { useIsFocused } from '@react-navigation/native';
 
-
-export default function AppointmentScreen() {
-    const layout = useWindowDimensions();
+export default function AppointmentScreen(props) {
+    const isFocused = useIsFocused();
+    // const layout = useWindowDimensions();
     const userData = useSelector((state) => state.auth.userData)
     const [ActiveAppointments , setActiveAppointments]=useState('')
-    
+    const [TodayAppointments , setTodayAppointments]=useState('')
+    const [refresh,setrefresh]=useState(false)
     useEffect(()=>{
-        let payload = {patient_id:userData.user._id}
-        axios.post(GetAppointments,payload)
-        .then((res)=>res.data)
-        .then((ActiveAppointments)=>setActiveAppointments(ActiveAppointments))
-        
-    },[])
+        if(isFocused){
+            fetchData();
+            fetchTodayAppointments();
+        }
+    },[isFocused])
+    useEffect(()=>{
+        fetchData();
+        fetchTodayAppointments();
+    },[refresh])
+
+   const fetchData=()=>{
+    let payload = {patient_id:userData.user._id}
+    axios.post(GetAppointments,payload)
+    .then((res)=>res.data)
+    .then((ActiveAppointments)=>setActiveAppointments(ActiveAppointments))
+   }
+   const fetchTodayAppointments = () =>{
+    let payload = {patient_id:userData.user._id}
+    axios.post(TODAYAPPOINTMENTS,payload)
+    .then((res)=>res.data)
+    .then((TodayAppointments)=>setTodayAppointments(TodayAppointments))
+   }
+    
     console.log(ActiveAppointments.date)
     console.log(ActiveAppointments)
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
       { key: 'first', title: 'Active' },
-    //   { key: 'second', title: 'Today' },
+      { key: 'second', title: 'Today' },
     ]);
+    
     const AppointmentShow = () => {
-        
+        const onDelete = (id)=>{
+        try{
+            let url = DELETEAPPOINTMENT+id
+            axios.post(url)
+            .then((res)=>console.log(res.data))
+            showSuccess("Deleted")
+            setrefresh(true)
+            setTimeout(()=>{
+                setrefresh(false)
+            },800)
+        }
+        catch (error) {
+          showError(error.message)
+        }
+          
+           
+        }
+
         const renderItem = ({ item }) => (
-            
-                <View style={{ marginHorizontal: 20.0 }}>
-                <View style={{ flexDirection: 'row', marginVertical: 20.0 }}>
+                 
+            <View style={{ justifyContent: "space-between", flexDirection: 'row',padding:5 }}>
+
+                <View style={{flexDirection:'row'}}>
                     <View style={styles.pasetCircleStyle}>
                         <Text style={{ textAlign: 'center', color: Colors.primary, fontSize: 18, }}>{moment(item.date).format("DD MMMM YYYY")}</Text>
                     </View>
                     <View style={{ marginLeft: 10.0 }}>
-                        <Text style={{ marginVertical: 8.0,fontWeight:"bold",...Fonts.black20Bold  }}>Dr {item.doctor_id.Fullname}</Text>
-                        <Text style={{ marginVertical: 8.0,fontWeight:"bold",...Fonts.black20Bold }}>{moment(item.time , 'hh:mm a').format('hh:mm a')}</Text>
+                        <Text style={{ marginVertical: 8.0, fontWeight: "bold", ...Fonts.black20Bold }}>Dr {item.doctor_id.Fullname}</Text>
+                        <Text style={{ marginVertical: 8.0, fontWeight: "bold", ...Fonts.black20Bold }}>{moment(item.time, 'hh:mm a').format('hh:mm a')}</Text>
                         <Text style={{ ...Fonts.primaryColorRegular }}></Text>
                     </View>
+
                 </View>
-                
-                <View style={{ backgroundColor: Colors.lightGray, height: 0.50, }}>
+                <View style={{justifyContent:'flex-end' , marginRight:12}}>
+                    <TouchableOpacity  onPress={() => onDelete(item._id)} style={styles.delete}>
+                        <Text style={{fontSize:18,color:"#fff"}}>delete</Text>
+                    </TouchableOpacity>
+                    
                 </View>
-            </View>
+
+             </View>
             
             
            
@@ -60,26 +105,86 @@ export default function AppointmentScreen() {
                     <Text style={{ ...Fonts.gray17Regular, marginTop: Sizes.fixPadding * 2.0 }}>No Active Appointments</Text>
                 </View>  :
                 <FlatList
-                    
                     data={ActiveAppointments}
                     keyExtractor={(item) => `${item._id}`}
                     renderItem={renderItem}
+                    listMode="SCROLLVIEW"
+                    ItemSeparatorComponent={()=><View style={{height:2,width:"100%",backgroundColor:"#ccc",marginHorizontal:10}}/>}
+                    
                 />
                 
-                
-
-            
         )
     
     }
       
-      const SecondRoute = () => (
-        <View style={{ flex: 1, backgroundColor: '#673ab7' }} />
-      );
+      const SecondRoute = () =>{
+        const onDelete = (id)=>{
+            try{
+                let url = DELETEAPPOINTMENT+id
+                axios.post(url)
+                .then((res)=>console.log(res.data))
+                showSuccess("Deleted")
+                setrefresh(true)
+                setTimeout(()=>{
+                    setrefresh(false)
+                },800)
+            }
+            catch (error) {
+              showError(error.message)
+            }
+              
+               
+            }
+            const renderItem = ({ item }) => (
+                 
+                <View style={{ justifyContent: "space-between", flexDirection: 'row',padding:5 }}>
+    
+                    <View style={{flexDirection:'row'}}>
+                        <View style={styles.pasetCircleStyle}>
+                            <Text style={{ textAlign: 'center', color: Colors.primary, fontSize: 18, }}>{moment(item.date).format("DD MMMM YYYY")}</Text>
+                        </View>
+                        <View style={{ marginLeft: 10.0 }}>
+                            <Text style={{ marginVertical: 8.0, fontWeight: "bold", ...Fonts.black20Bold }}>Dr {item.doctor_id.Fullname}</Text>
+                            <Text style={{ marginVertical: 8.0, fontWeight: "bold", ...Fonts.black20Bold }}>{moment(item.time, 'hh:mm a').format('hh:mm a')}</Text>
+                            <Text style={{ ...Fonts.primaryColorRegular }}></Text>
+                        </View>
+    
+                    </View>
+                    <View style={{justifyContent:'flex-end' , marginRight:12}}>
+                        <TouchableOpacity  onPress={() => onDelete(item._id)} style={styles.delete}>
+                            <Text style={{fontSize:18,color:"#fff"}}>delete</Text>
+                        </TouchableOpacity>
+                        
+                    </View>
+    
+                 </View>
+                
+                
+               
+            )
+        return(
+            TodayAppointments.length===0?
+            
+              <View style={styles.noActiveDataContainerStyle}>
+                    <FontAwesome5 name="calendar-alt" size={70} color='gray' />
+                    <Text style={{ ...Fonts.gray17Regular, marginTop: Sizes.fixPadding * 2.0 }}>No Today Appointments</Text>
+                </View>  :
+                <FlatList
+                    data={TodayAppointments}
+                    keyExtractor={(item) => item._id}
+                    renderItem={renderItem}
+                    listMode="SCROLLVIEW"
+                    ItemSeparatorComponent={()=><View style={{height:2,width:"100%",backgroundColor:"#ccc",marginHorizontal:10}}/>}
+                    
+                />
+)
+        
+        
+      }
       
       const renderScene = SceneMap({
         first: AppointmentShow,
-        // second: SecondRoute,
+         second: SecondRoute,
       });
     return (
 
@@ -87,7 +192,7 @@ export default function AppointmentScreen() {
         navigationState={{ index, routes }}
         renderScene={renderScene}
         onIndexChange={setIndex}
-        initialLayout={{ width: layout.width }}
+        // initialLayout={{ width: layout.width }}
       />
     );
   }
@@ -105,6 +210,14 @@ export default function AppointmentScreen() {
         justifyContent: 'center',
         paddingHorizontal: 10.0,
     },
+    delete:{
+        justifyContent:"center",
+        alignItems:'center',
+        backgroundColor:"red",
+        width:90,
+        height:40,
+        borderRadius:50,
+    }, 
     activeCircleStyle: {
         height: 90.0,
         width: 90.0,

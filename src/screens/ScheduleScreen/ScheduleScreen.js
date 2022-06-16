@@ -5,15 +5,11 @@ import AppointmentScreen from "../AppointmentsScreen/AppointmentScreen"
 
 
 
-const ScheduleScreen = () => {
+export default function ScheduleScreen(){
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
             
                <AppointmentScreen/>
-            
-            
         </SafeAreaView>
     );
 }
-
-export default ScheduleScreen;

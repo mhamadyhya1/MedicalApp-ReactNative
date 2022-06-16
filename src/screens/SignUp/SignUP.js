@@ -8,9 +8,10 @@ import { useFormik } from 'formik';
 import actions from '../../redux/actions';
 import { showError , showSuccess } from '../../components/ShowMessage';
 
+
 export default function SignUP({navigation}) {
 
-
+  
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [date, setDate] = useState("")
   const updateState = (data) => useFormik(() => ({ ...values, ...data }))

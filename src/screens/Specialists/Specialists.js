@@ -5,19 +5,24 @@ import  AntDesign  from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from "./styles";
 import { SPECIALISTS } from "../../config/urls";
+import { useIsFocused } from '@react-navigation/native';
 
-
-const SpecialistScreen = ({ navigation }) => {
+export default function SpecialistScreen({ navigation }){
+    const isFocused = useIsFocused()
     const[SpecialistData,setSpecialistData ]=useState([])
     const [isLoading,setisLoading]=useState(false);
     useEffect(()=>{
+        if(isFocused){
+            fetchSpecialists()
+        }
+    },[isFocused])
+     const fetchSpecialists = () =>{
         fetch(SPECIALISTS)
         .then((response)=>response.json())
         .then((SpecialistData)=>setSpecialistData(SpecialistData))
         .catch(console.error)
         .finally(()=>setisLoading(true))
-    },[])
-
+     }
 
     function header() {
         return <View style={styles.headerStyle}>
@@ -79,4 +84,4 @@ SpecialistScreen.navigationOptions = () => {
     }
 }
 
-export default SpecialistScreen;
+ SpecialistScreen;
